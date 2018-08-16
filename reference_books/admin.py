@@ -14,6 +14,7 @@ from .models import (
     WorkAndTechnique,
     Fertilizer,
     Protection,
+    AdditionalExpenditure,
 )
 
 
@@ -136,3 +137,8 @@ class ProtectionAdmin(admin.ModelAdmin):
         'title',
         'manufacturer',
     )
+
+
+@admin.register(AdditionalExpenditure)
+class AdditionalExpenditureAdmin(admin.ModelAdmin):
+    pass

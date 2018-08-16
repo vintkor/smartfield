@@ -237,3 +237,18 @@ class Protection(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AdditionalExpenditure(models.Model):
+    """
+    Дополнительные затраты
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+
+    class Meta:
+        verbose_name = _('Дополнительные затраты')
+        verbose_name_plural = _('Дополнительные затраты')
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
