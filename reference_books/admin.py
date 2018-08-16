@@ -17,6 +17,7 @@ from .models import (
     AdditionalExpenditure,
     FarmingTechniquesType,
     MachineryType,
+    ProcessCycle,
 )
 
 
@@ -155,4 +156,9 @@ class ProtectionAdmin(admin.ModelAdmin):
 
 @admin.register(AdditionalExpenditure)
 class AdditionalExpenditureAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ProcessCycle)
+class ProcessCycleAdmin(admin.ModelAdmin):
     pass

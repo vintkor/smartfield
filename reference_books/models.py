@@ -286,3 +286,19 @@ class AdditionalExpenditure(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ProcessCycle(models.Model):
+    """
+    Технологический цикл
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+    sort = models.PositiveSmallIntegerField(default=1, verbose_name=_('Сортировка'))
+
+    class Meta:
+        verbose_name = _('Технологический цикл')
+        verbose_name_plural = _('Технологические циклы')
+        ordering = ('sort',)
+
+    def __str__(self):
+        return self.title
