@@ -1,0 +1,35 @@
+[
+{
+    "model": "reference_books.currency",
+    "pk": 1,
+    "fields": {
+        "title": "\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0430\u044f \u0433\u0440\u0438\u0432\u043d\u0430",
+        "iso_4217_letter_code": "UAH",
+        "iso_4217_numeric_code": 980,
+        "short_symbol": "\u20b4",
+        "is_main": true
+    }
+},
+{
+    "model": "reference_books.currency",
+    "pk": 2,
+    "fields": {
+        "title": "\u0414\u043e\u043b\u043b\u0430\u0440 \u0421\u0428\u0410",
+        "iso_4217_letter_code": "USD",
+        "iso_4217_numeric_code": 840,
+        "short_symbol": "$",
+        "is_main": false
+    }
+},
+{
+    "model": "reference_books.currency",
+    "pk": 3,
+    "fields": {
+        "title": "\u0415\u0432\u0440\u043e",
+        "iso_4217_letter_code": "EUR",
+        "iso_4217_numeric_code": 978,
+        "short_symbol": "\u20ac",
+        "is_main": false
+    }
+}
+]

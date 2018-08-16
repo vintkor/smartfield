@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
 from .models import (
+    Currency,
     Unit,
     Manufacturer,
     Agriculture,
@@ -11,7 +12,20 @@ from .models import (
     FarmingTechniques,
     Machinery,
     WorkAndTechnique,
+    Fertilizer,
+    Protection,
 )
+
+
+@admin.register(Currency)
+class CurrencyAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'iso_4217_letter_code',
+        'iso_4217_numeric_code',
+        'short_symbol',
+        'is_main',
+    )
 
 
 @admin.register(Unit)
@@ -61,6 +75,13 @@ class FieldAdmin(BingGeoAdmin):
     modifiable = True
     save_on_top = True
 
+    list_display = (
+        'title',
+        'square',
+        'square_unit',
+        'rent_cost',
+    )
+
 
 @admin.register(Fuel)
 class FuelAdmin(admin.ModelAdmin):
@@ -98,4 +119,20 @@ class WorkAndTechniqueAdmin(admin.ModelAdmin):
         'work_type',
         'farming_techniques',
         'machinery',
+    )
+
+
+@admin.register(Fertilizer)
+class FertilizerAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'manufacturer',
+    )
+
+
+@admin.register(Protection)
+class ProtectionAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'manufacturer',
     )

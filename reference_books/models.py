@@ -1,5 +1,31 @@
 from django.utils.translation import ugettext as _
 from django.contrib.gis.db import models
+from django.core.exceptions import ValidationError
+
+
+def iso_4217_numeric_code_validator(value):
+    if not len(str(value)) == 3:
+        raise ValidationError(_(
+            'Код "{}" дожен быть трёхзначным'.format(value)
+        ))
+
+
+class Currency(models.Model):
+    """
+    Валюта
+    """
+    title = models.CharField(max_length=100, verbose_name=_('Название'))
+    iso_4217_letter_code = models.CharField(max_length=3, verbose_name=_('ISO 4217 символьный код'))
+    iso_4217_numeric_code = models.PositiveSmallIntegerField(verbose_name=_('ISO 4217 цыфровой код'), validators=[iso_4217_numeric_code_validator])
+    short_symbol = models.CharField(verbose_name=_('Символ'), max_length=5, blank=True, null=True)
+    is_main = models.BooleanField(default=False, verbose_name=_('Является основной'))
+
+    class Meta:
+        verbose_name = _('Валюта')
+        verbose_name_plural = _('Валюты')
+
+    def __str__(self):
+        return self.title
 
 
 class Unit(models.Model):
@@ -177,3 +203,37 @@ class WorkAndTechnique(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.work_type, self.farming_techniques)
+
+
+class Fertilizer(models.Model):
+    """
+    Удобрения
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Производитель'))
+    desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
+
+    class Meta:
+        verbose_name = _('Удобрение')
+        verbose_name_plural = _('Удобрения')
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
+
+
+class Protection(models.Model):
+    """
+    Средства защиты растений
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Производитель'))
+    desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
+
+    class Meta:
+        verbose_name = _('Средство защиты растений')
+        verbose_name_plural = _('Средства защиты растений')
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
