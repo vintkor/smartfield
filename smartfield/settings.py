@@ -31,6 +31,7 @@ except:
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.gis',
 
         'debug_toolbar',
 
@@ -76,7 +77,7 @@ except:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'smartfield',
             'USER': 'smartfield',
             'PASSWORD': 'smartfield',
