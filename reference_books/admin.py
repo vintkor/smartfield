@@ -15,6 +15,8 @@ from .models import (
     Fertilizer,
     Protection,
     AdditionalExpenditure,
+    FarmingTechniquesType,
+    MachineryType,
 )
 
 
@@ -81,6 +83,8 @@ class FieldAdmin(BingGeoAdmin):
         'square',
         'square_unit',
         'rent_cost',
+        'rent_cost_unit',
+        'rent_cost_currency',
     )
 
 
@@ -94,6 +98,16 @@ class WorkTypeAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(FarmingTechniquesType)
+class FarmingTechniquesTypeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(MachineryType)
+class MachineryTypeAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(FarmingTechniques)
 class FarmingTechniquesAdmin(admin.ModelAdmin):
     pass
@@ -103,8 +117,8 @@ class FarmingTechniquesAdmin(admin.ModelAdmin):
 class MachineryAdmin(admin.ModelAdmin):
     list_display = (
         'title',
-        'farming_techniques',
     )
+    filter_horizontal = ('farming_techniques',)
 
 
 @admin.register(WorkAndTechnique)

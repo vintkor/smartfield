@@ -107,6 +107,8 @@ class Field(models.Model):
     square = models.DecimalField(verbose_name=_('Площадь'), blank=True, null=True, decimal_places=6, max_digits=30)
     square_unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name=_('Ед. измерения'), blank=True, null=True)
     rent_cost = models.DecimalField(verbose_name=_('Стоимость аренды'), blank=True, null=True, decimal_places=3, max_digits=10)
+    rent_cost_unit = models.ForeignKey(Unit, on_delete=models.CASCADE, related_name='rent_cost_unit', verbose_name=_('Ед. измерения стоимости аренды'), blank=True, null=True)
+    rent_cost_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, verbose_name=_('Валюта стоимости аренды'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Поле')
@@ -152,10 +154,41 @@ class WorkType(models.Model):
         return self.title
 
 
+class FarmingTechniquesType(models.Model):
+    """
+    Тип самоходной техники
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+
+    class Meta:
+        verbose_name = _('Тип самоходной техники')
+        verbose_name_plural = _('Типы самоходной техники')
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
+
+
+class MachineryType(models.Model):
+    """
+    Тип прицепных агрещатов
+    """
+    title = models.CharField(max_length=250, verbose_name=_('Название'))
+
+    class Meta:
+        verbose_name = _('Тип прицепных агрещатов')
+        verbose_name_plural = _('Типы прицепных агрещатов')
+        ordering = ('title',)
+
+    def __str__(self):
+        return self.title
+
+
 class FarmingTechniques(models.Model):
     """
     Самоходная техника
     """
+    type = models.ForeignKey(FarmingTechniquesType, on_delete=models.CASCADE)
     title = models.CharField(max_length=250, verbose_name=_('Название'))
     photo = models.ImageField(upload_to='reference_books', blank=True, null=True)
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
@@ -173,10 +206,11 @@ class Machinery(models.Model):
     """
     Прицепные аггрегаты
     """
-    farming_techniques = models.ForeignKey(FarmingTechniques, on_delete=models.CASCADE, verbose_name=_('Самоходная техника'))
+    type = models.ForeignKey(MachineryType, on_delete=models.CASCADE)
     title = models.CharField(max_length=250, verbose_name=_('Название'))
     photo = models.ImageField(upload_to='reference_books', blank=True, null=True)
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
+    farming_techniques = models.ManyToManyField(FarmingTechniques, verbose_name=_('Самоходная техника'))
 
     class Meta:
         verbose_name = _('Прицепной аггрегат')
