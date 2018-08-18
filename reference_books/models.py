@@ -144,11 +144,12 @@ class WorkType(models.Model):
     """
     title = models.CharField(max_length=250, verbose_name=_('Название'))
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
+    sort = models.PositiveSmallIntegerField(default=10, verbose_name=_('Сортировка'))
 
     class Meta:
         verbose_name = _('Вид работ')
         verbose_name_plural = _('Виды работ')
-        ordering = ('title',)
+        ordering = ('sort', 'title')
 
     def __str__(self):
         return self.title

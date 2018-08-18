@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo app</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1 class="text-center text-info">Demo</h1>
+    <hr>
+    <div id="demo-app">
+        <form action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <select
+                                name="field"
+                                id="field"
+                                class="form-control">
+                                <option disabled selected>Выберите поле</option>
+                                <option v-for="f in fields" :value="f.pk">[[ f.fields.title ]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <select
+                                name="agriculture"
+                                id="agriculture"
+                                class="form-control">
+                            <option disabled selected>Выберите культуру</option>
+                            <option v-for="a in agriculture" :value="a.pk">[[ a.fields.title ]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <select
+                                name="seeds"
+                                id="seeds"
+                                class="form-control">
+                            <option disabled selected>Выберите семена</option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Работа</th>
+                    <th>Ед. изм.</th>
+                    <th>Технологический цикл</th>
+                    <th>Период проведения работ</th>
+                    <th>Техника</th>
+                    <th>Действия</th>
+                </tr>
+                <tr v-for="(work, index) in works">
+                    <td>[[ work.fields.title ]]</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>[[ works.workAndTechnique ]]</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @click="popWork(index)">Удалить</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <select name="" id="" class="form-control" v-model="choisedWork">
+                            <option disabled selected>Выбрать работу</option>
+                            <option v-for="work in workTemplates" :value="work.pk">[[ work.fields.title ]]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <button class="btn btn-block btn-info" @click="addWork">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'demo-page.js' %}"></script>
+</body>
+</html>

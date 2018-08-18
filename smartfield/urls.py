@@ -17,8 +17,17 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 
+from .demo_view import DemoView
+from .view import DashboardView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('demo/', DemoView.as_view()),
+    path('dashboard/', include([
+        path('', DashboardView.as_view(), name='dashboard'),
+        path('planning/', include('planning.urls')),
+    ])),
+
 ]
 
 if settings.DEBUG:

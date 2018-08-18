@@ -37,6 +37,8 @@ except:
 
         'user_profile',
         'reference_books',
+        'planning',
+        'company',
     ]
 
     MIDDLEWARE = [
@@ -60,7 +62,7 @@ except:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
+            'DIRS': ['templates'],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [

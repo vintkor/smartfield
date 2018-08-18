@@ -1,0 +1,23 @@
+{% load i18n %}
+<aside class="sidebar sidebar-left" data-scroll="minimal">
+    <div class="sidebar-content">
+        <nav class="main-menu">
+            <ul class="nav metismenu">
+                <li class="sidebar-header"><span>{% trans 'Навигация' %}</span></li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow-" href="{% url 'dashboard' %}" aria-expanded="false">
+                        <i class="icon dripicons-meter"></i><span>{% trans 'Сводка' %}</span>
+                    </a>
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow" href="index.html#" aria-expanded="false">
+                        <i class="icon dripicons-article"></i><span>{% trans 'Планирование' %}</span>
+                    </a>
+                    <ul class="collapse nav-sub" aria-expanded="false">
+                        <li><a href="{% url 'planning:add-plan' %}"><span>{% trans 'Сделать планирование поля' %}</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

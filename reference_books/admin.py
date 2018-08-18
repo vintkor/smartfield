@@ -96,7 +96,8 @@ class FuelAdmin(admin.ModelAdmin):
 
 @admin.register(WorkType)
 class WorkTypeAdmin(admin.ModelAdmin):
-    pass
+    list_editable = ('sort',)
+    list_display = ('title', 'sort')
 
 
 @admin.register(FarmingTechniquesType)
