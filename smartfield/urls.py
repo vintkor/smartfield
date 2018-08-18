@@ -26,8 +26,8 @@ urlpatterns = [
     path('dashboard/', include([
         path('', DashboardView.as_view(), name='dashboard'),
         path('planning/', include('planning.urls')),
+        path('profile/', include('user_profile.urls')),
     ])),
-
 ]
 
 if settings.DEBUG:
