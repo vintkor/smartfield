@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<tr>
+    <td>
+        <div class="form-group">
+            <select name="" class="select2 form-control">
+                <option disabled selected>{% trans 'Выбрать работу' %}</option>
+                {% for work in works %}
+                    <option value="{{ work.id }}">{{ work.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <select name="" class="select2 form-control">
+                <option disabled selected>{% trans 'Выбрать ед. изм' %}</option>
+{#                <option value=""></option>#}
+            </select>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <select name="" class="select2 form-control">
+                <option disabled selected>{% trans 'Выбрать этап' %}</option>
+{#                <option value=""></option>#}
+            </select>
+        </div>
+    </td>
+</tr>

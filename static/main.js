@@ -38,9 +38,68 @@ $(document).ready(function () {
         }
     });
 
-    // -------------------------------- ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ --------------------------------
+    // =================================== ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ =================================== //
 
     $('.select2').select2();
+
+    $('#choice-agriculture-id').change(function () {
+        var self = this;
+
+        $.ajax({
+            url: window.location.href,
+            method: 'get',
+            data: {
+                action: 'get_seeds',
+                agriculture_id: $(self).val()
+            },
+            success: function (response) {
+                var seedsSelect = $('#choice-seeds-id');
+
+                if (response.seeds.length > 0) {
+                    seedsSelect.empty();
+
+                    // var newOption2 = new Option('rwer', 're', false, false);
+                    // seedsSelect.append(newOption2).trigger('change');
+
+                    response.seeds.forEach(function (el) {
+                        var newOption = new Option(el.title, el.id);
+                        seedsSelect.append(newOption).trigger('change');
+                        seedsSelect.prop("disabled", false);
+                    });
+                } else {
+                    seedsSelect.empty();
+                    seedsSelect.prop("disabled", true);
+                }
+
+            },
+            error: function (e) {
+                console.log(e.statusText)
+            }
+        });
+    });
+
+
+    $('#add-planning-add-row').click(function (e) {
+        e.preventDefault();
+        var table = $('#add-planning-table');
+
+        $.ajax({
+            url: window.location.href,
+            method: 'get',
+            data: {
+                'action': 'add_plan_item'
+            },
+            success: function (response) {
+                console.log(response);
+                table.append(response);
+                table.find('.select2').select2({width: '100%'});
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        });
+
+    });
 
 });
 
