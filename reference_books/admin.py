@@ -98,6 +98,7 @@ class FuelAdmin(admin.ModelAdmin):
 class WorkTypeAdmin(admin.ModelAdmin):
     list_editable = ('sort',)
     list_display = ('title', 'sort')
+    filter_horizontal = ('units',)
 
 
 @admin.register(FarmingTechniquesType)

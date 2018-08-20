@@ -1,3 +1,28 @@
+// Удаление элемента из ДОМ-дерева с анимацией
+function deleteElFromDomWithAnimation(el) {
+    $(el).css({
+        backgroundColor: 'rgba(243, 227, 13, .4)'
+    }).hide('slow');
+    setTimeout(function () {
+        $(el).remove();
+    }, 800);
+}
+
+// Подстановка в select2 поле данных из ответа сервера
+function resetSelect2(select2Element, response, propertyName) {
+    if (response[propertyName].length > 0) {
+        select2Element.empty();
+        response[propertyName].forEach(function (el) {
+            var newOption = new Option(el.title, el.id);
+            select2Element.append(newOption).trigger('change');
+            select2Element.prop("disabled", false);
+        });
+    } else {
+        select2Element.empty();
+        select2Element.prop("disabled", true);
+    }
+}
+
 $(document).ready(function () {
 
     function getCookie(name) {
@@ -38,12 +63,15 @@ $(document).ready(function () {
         }
     });
 
-    // =================================== ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ =================================== //
+    // ====================================================================== //
+    // =======================   ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ  ===================== //
+    // ====================================================================== //
 
     $('.select2').select2();
 
     $('#choice-agriculture-id').change(function () {
         var self = this;
+        var seedsSelect = $('#choice-seeds-id');
 
         $.ajax({
             url: window.location.href,
@@ -53,32 +81,15 @@ $(document).ready(function () {
                 agriculture_id: $(self).val()
             },
             success: function (response) {
-                var seedsSelect = $('#choice-seeds-id');
-
-                if (response.seeds.length > 0) {
-                    seedsSelect.empty();
-
-                    // var newOption2 = new Option('rwer', 're', false, false);
-                    // seedsSelect.append(newOption2).trigger('change');
-
-                    response.seeds.forEach(function (el) {
-                        var newOption = new Option(el.title, el.id);
-                        seedsSelect.append(newOption).trigger('change');
-                        seedsSelect.prop("disabled", false);
-                    });
-                } else {
-                    seedsSelect.empty();
-                    seedsSelect.prop("disabled", true);
-                }
-
+                resetSelect2(seedsSelect, response, 'seeds');
             },
             error: function (e) {
-                console.log(e.statusText)
+                console.log(e);
             }
         });
     });
 
-
+    // ----------------------------- Добавление строки ----------------------------- //
     $('#add-planning-add-row').click(function (e) {
         e.preventDefault();
         var table = $('#add-planning-table');
@@ -90,12 +101,41 @@ $(document).ready(function () {
                 'action': 'add_plan_item'
             },
             success: function (response) {
-                console.log(response);
                 table.append(response);
                 table.find('.select2').select2({width: '100%'});
             },
             error: function (e) {
                 console.log(e)
+            }
+        });
+
+    });
+
+    // ----------------------------- Удаление строки ----------------------------- //
+    $(document).on('click', '.add-plan-row__delete-row', function (e) {
+        e.preventDefault();
+        var parentRow = $(this).parents('tr');
+        deleteElFromDomWithAnimation(parentRow);
+        // TODO Перед удалением делать аякс запрос и удалять запись из БД
+    });
+
+    // ----------------------------- Подстановка ед измерения в добавленой строке ----------------------------- //
+    $(document).on('change', '.planning-add-row-choice-work', function () {
+        var workID = $(this).val();
+        var unitSelect = $(this).parents('tr').find('.planning-add-row-choice-work-unit');
+
+        $.ajax({
+            url: window.location.href,
+            method: 'get',
+            data: {
+                action: 'get_work_units',
+                work_id: workID
+            },
+            success: function (response) {
+                resetSelect2(unitSelect, response, 'units');
+            },
+            error: function (e) {
+                console.log(e);
             }
         });
 

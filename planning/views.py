@@ -3,12 +3,7 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
-    FormView,
     View,
-)
-from .models import (
-    Plan,
-    PlanItem,
 )
 from reference_books.models import (
     Field,
@@ -33,7 +28,9 @@ class AddPlanView(LoginRequiredMixin, View):
             }
             return render(request, 'planning/add-plan.html', context)
 
-        if params.get('action') == 'get_seeds' and params.get('agriculture_id'):
+        action = params.get('action')
+
+        if action == 'get_seeds' and params.get('agriculture_id'):
             seeds = [
                 {
                     'id': i['id'],
@@ -46,7 +43,18 @@ class AddPlanView(LoginRequiredMixin, View):
                 'seeds': seeds,
             })
 
-        if params.get('action') == 'add_plan_item':
+        if action == 'get_work_units' and params.get('work_id'):
+            units = [{
+                'id': i.id,
+                'title': i.short_name,
+            } for i in WorkType.objects.get(id=params.get('work_id')).units.all()]
+
+            return JsonResponse({
+                'status': True,
+                'units': units,
+            })
+
+        if action == 'add_plan_item':
             context = {
                 'works': WorkType.objects.all()
             }

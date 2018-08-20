@@ -145,6 +145,7 @@ class WorkType(models.Model):
     title = models.CharField(max_length=250, verbose_name=_('Название'))
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
     sort = models.PositiveSmallIntegerField(default=10, verbose_name=_('Сортировка'))
+    units = models.ManyToManyField(Unit, verbose_name=_('Ед. измерения'))
 
     class Meta:
         verbose_name = _('Вид работ')

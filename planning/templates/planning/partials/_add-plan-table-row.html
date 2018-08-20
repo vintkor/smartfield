@@ -3,7 +3,7 @@
 <tr>
     <td>
         <div class="form-group">
-            <select name="" class="select2 form-control">
+            <select name="" class="select2 form-control planning-add-row-choice-work">
                 <option disabled selected>{% trans 'Выбрать работу' %}</option>
                 {% for work in works %}
                     <option value="{{ work.id }}">{{ work.title }}</option>
@@ -13,7 +13,7 @@
     </td>
     <td>
         <div class="form-group">
-            <select name="" class="select2 form-control">
+            <select name="" class="select2 form-control planning-add-row-choice-work-unit">
                 <option disabled selected>{% trans 'Выбрать ед. изм' %}</option>
 {#                <option value=""></option>#}
             </select>
@@ -26,5 +26,8 @@
 {#                <option value=""></option>#}
             </select>
         </div>
+    </td>
+    <td>
+        <button class="btn btn-danger add-plan-row__delete-row"><i class="la la-trash white-color"></i></button>
     </td>
 </tr>
