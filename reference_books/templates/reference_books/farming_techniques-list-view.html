@@ -1,0 +1,42 @@
+{% extends 'cabinet/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}{% trans 'Справочник - Самоходная техника' %}{% endblock page_title %}
+{% block page_name %}{% trans 'Справочник - Самоходная техника' %}{% endblock page_name %}
+
+{% block header_vendor_css %}{% endblock header_vendor_css %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>{% trans 'Тип техники' %}</th>
+                            <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Фото' %}</th>
+                        </tr>
+                        {% for farming_technique in farming_techniques %}
+                            <tr>
+                                <td>{{ farming_technique.type.title }}</td>
+                                <td>{{ farming_technique.title }}</td>
+                                <td>
+                                    {% if farming_technique.photo %}
+                                        <img src="{{ farming_technique.photo.url }}" style="max-height: 50px;">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

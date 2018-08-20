@@ -10,6 +10,8 @@ from reference_books.models import (
     Agriculture,
     Seed,
     WorkType,
+    ProcessCycle,
+    WorkAndTechnique,
 )
 
 
@@ -48,15 +50,21 @@ class AddPlanView(LoginRequiredMixin, View):
                 'id': i.id,
                 'title': i.short_name,
             } for i in WorkType.objects.get(id=params.get('work_id')).units.all()]
+            technique = [{
+                'id': i.id,
+                'machinery': i.machinery.title,
+            } for i in WorkAndTechnique.objects.filter(work_type_id=params.get('work_id'))]
 
             return JsonResponse({
                 'status': True,
                 'units': units,
+                'technique': technique,
             })
 
         if action == 'add_plan_item':
             context = {
-                'works': WorkType.objects.all()
+                'works': WorkType.objects.all(),
+                'process_cycles': ProcessCycle.objects.values('id', 'title').all(),
             }
             return render(request, 'planning/partials/_add-plan-table-row.html', context)
 

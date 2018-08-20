@@ -1,0 +1,48 @@
+{% extends 'cabinet/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}{% trans 'Справочник - Прицепные аггрегаты' %}{% endblock page_title %}
+{% block page_name %}{% trans 'Справочник - Прицепные аггрегаты' %}{% endblock page_name %}
+
+{% block header_vendor_css %}{% endblock header_vendor_css %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>{% trans 'Тип аггрегата' %}</th>
+                            <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Фото' %}</th>
+                            <th>{% trans 'Допустимая техника' %}</th>
+                        </tr>
+                        {% for machinery in machineries %}
+                            <tr>
+                                <td>{{ machinery.type.title }}</td>
+                                <td>{{ machinery.title }}</td>
+                                <td>
+                                    {% if machinery.photo %}
+                                        <img src="{{ machinery.photo.url }}" style="max-height: 50px;">
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% for technique in machinery.farming_techniques.all %}
+                                        <a href="#" target="_blank">{{ technique.title }}</a>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

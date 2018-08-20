@@ -1,3 +1,9 @@
 .white-color {
     color: #fff;
 }
+#add-planning-table td {
+    vertical-align: middle;
+}
+#add-planning-table th {
+    text-align: center;
+}

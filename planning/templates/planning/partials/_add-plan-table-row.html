@@ -15,7 +15,6 @@
         <div class="form-group">
             <select name="" class="select2 form-control planning-add-row-choice-work-unit">
                 <option disabled selected>{% trans 'Выбрать ед. изм' %}</option>
-{#                <option value=""></option>#}
             </select>
         </div>
     </td>
@@ -23,8 +22,40 @@
         <div class="form-group">
             <select name="" class="select2 form-control">
                 <option disabled selected>{% trans 'Выбрать этап' %}</option>
-{#                <option value=""></option>#}
+                {% for process_cycle in process_cycles %}
+                    <option value="{{ process_cycle.id }}">{{ process_cycle.title }}</option>
+                {% endfor %}
             </select>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" class="form-control" readonly>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" class="form-control">
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" class="form-control">
+        </div>
+    </td>
+    <td>
+        <select name="" class="select2 form-control planning-add-row-technique-for-work">
+            <option disabled selected>{% trans 'Выбрать технику' %}</option>
+        </select>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" class="form-control">
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <input type="number" class="form-control">
         </div>
     </td>
     <td>

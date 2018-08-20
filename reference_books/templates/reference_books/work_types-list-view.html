@@ -1,0 +1,40 @@
+{% extends 'cabinet/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}{% trans 'Спрачник - Виды работ' %}{% endblock page_title %}
+{% block page_name %}{% trans 'Спрачник - Виды работ' %}{% endblock page_name %}
+
+{% block header_vendor_css %}{% endblock header_vendor_css %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Ед. измерения' %}</th>
+                        </tr>
+                        {% for work_type in work_types %}
+                            <tr>
+                                <td>{{ work_type.title }}</td>
+                                <td>
+                                    {% for unit in work_type.units.all %}
+                                        {{ unit.short_name }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

@@ -1,0 +1,38 @@
+{% extends 'cabinet/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}{% trans 'Справочник - Поля' %}{% endblock page_title %}
+{% block page_name %}{% trans 'Справочник - Поля' %}{% endblock page_name %}
+
+{% block header_vendor_css %}{% endblock header_vendor_css %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Площадь поля' %}</th>
+                            <th>{% trans 'Аренда поля' %}</th>
+                        </tr>
+                        {% for field in fields %}
+                            <tr>
+                                <td>{{ field.title }}</td>
+                                <td>{{ field.square }} {{ field.square_unit.short_name }}</td>
+                                <td>{{ field.rent_cost }} {{ field.rent_cost_unit.title }}{{ field.rent_cost_currency.short_symbol }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

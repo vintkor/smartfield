@@ -27,6 +27,7 @@ urlpatterns = [
         path('', DashboardView.as_view(), name='dashboard'),
         path('planning/', include('planning.urls')),
         path('profile/', include('user_profile.urls')),
+        path('reference-books/', include('reference_books.urls')),
     ])),
 ]
 

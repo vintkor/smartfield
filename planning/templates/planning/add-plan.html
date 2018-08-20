@@ -64,12 +64,25 @@
                 <div class="card-body">
                     <form action="">
                         <div class="table-responsive">
-                            <table class="table" id="add-planning-table">
+                            <table class="table table-bordered" id="add-planning-table">
                                 <tr>
-                                    <th>{% trans 'Работа' %}</th>
-                                    <th>{% trans 'Ед. изм' %}</th>
-                                    <th>{% trans 'Этап' %}</th>
-                                    <th>{% trans 'Действия' %}</th>
+                                    <th rowspan="4">{% trans 'Работа' %}</th>
+                                    <th rowspan="4">{% trans 'Ед. изм' %}</th>
+                                    <th rowspan="4">{% trans 'Этап' %}</th>
+                                    <th colspan="3">{% trans 'Объём работ' %}</th>
+                                    <th colspan="3">{% trans 'Состав аггрегата' %}</th>
+                                    <th rowspan="4">{% trans 'Действия' %}</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="3">{% trans 'В физ. ед (начальная)' %}</th>
+                                    <th rowspan="3">{% trans 'В физ. ед (уточнённая)' %}</th>
+                                    <th rowspan="3">{% trans 'В условных' %}</th>
+                                    <th rowspan="3">{% trans 'Техника' %}</th>
+                                    <th colspan="2">{% trans 'Персонал' %}</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="2">{% trans 'Другие' %}</th>
                                 </tr>
                             </table>
                         </div>

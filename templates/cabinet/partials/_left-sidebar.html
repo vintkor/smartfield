@@ -10,6 +10,30 @@
                     </a>
                 </li>
                 <li class="nav-dropdown">
+                    <a class="has-arrow" href="#" aria-expanded="false">
+                        <i class="icon dripicons-article"></i><span>{% trans 'Справочники' %}</span>
+                    </a>
+                    <ul class="collapse nav-sub" aria-expanded="false">
+                        <li><a href="{% url 'reference_books:process-cycle' %}"><span>{% trans 'Технологические циклы' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:field' %}"><span>{% trans 'Поля' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:farming-techniques-type' %}"><span>{% trans 'Типы самоходной техники' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:farming-techniques' %}"><span>{% trans 'Самоходная техника' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:machinery-type' %}"><span>{% trans 'Типы прицепных агрегатов' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:machinery' %}"><span>{% trans 'Прицепные агрегаты' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:work-type' %}"><span>{% trans 'Виды работ' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:work-and-technique' %}"><span>{% trans 'Работа и техника' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:agriculture' %}"><span>{% trans 'Агрокультуры' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:seed' %}"><span>{% trans 'Семена' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:protection' %}"><span>{% trans 'Средства защиты растений' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:fertilizer' %}"><span>{% trans 'Удобрения' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:additional-expenditure' %}"><span>{% trans 'Дополнительные затраты' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:currency' %}"><span>{% trans 'Валюты' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:unit' %}"><span>{% trans 'Единицы измерения' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:manufacturer' %}"><span>{% trans 'Производители' %}</span></a></li>
+                        <li><a href="{% url 'reference_books:fuel' %}"><span>{% trans 'Топливо' %}</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
                     <a class="has-arrow" href="index.html#" aria-expanded="false">
                         <i class="icon dripicons-article"></i><span>{% trans 'Планирование' %}</span>
                     </a>

@@ -67,8 +67,10 @@ $(document).ready(function () {
     // =======================   ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ  ===================== //
     // ====================================================================== //
 
+    // TODO Проверить, подключен ли select2 на странице
     $('.select2').select2();
 
+    // ----------------------------- Подстановка доступных семян при выборе культуры ----------------------------- //
     $('#choice-agriculture-id').change(function () {
         var self = this;
         var seedsSelect = $('#choice-seeds-id');
@@ -123,6 +125,7 @@ $(document).ready(function () {
     $(document).on('change', '.planning-add-row-choice-work', function () {
         var workID = $(this).val();
         var unitSelect = $(this).parents('tr').find('.planning-add-row-choice-work-unit');
+        var techniqueForWorkSelect = $(this).parents('tr').find('.planning-add-row-technique-for-work');
 
         $.ajax({
             url: window.location.href,
@@ -133,6 +136,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 resetSelect2(unitSelect, response, 'units');
+                resetSelect2(techniqueForWorkSelect, response, 'technique');
             },
             error: function (e) {
                 console.log(e);
