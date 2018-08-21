@@ -19,9 +19,12 @@ from .models import (
 )
 from django.views.generic import (
     ListView,
+    CreateView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from .forms import FieldsCreateForm
+from django.utils.translation import ugettext as _
 
 
 class CurrencyListView(LoginRequiredMixin, ListView):
@@ -64,6 +67,12 @@ class FieldListView(LoginRequiredMixin, ListView):
     template_name = 'reference_books/fields-list-view.html'
     context_object_name = 'fields'
     model = Field
+
+
+class FieldsCreateFormView(CreateView):
+    login_url = reverse_lazy('user:login')
+    template_name = 'reference_books/fields-add-form-view.html'
+    form_class = FieldsCreateForm
 
 
 class FuelListView(LoginRequiredMixin, ListView):
@@ -141,3 +150,14 @@ class ProcessCycleListView(LoginRequiredMixin, ListView):
     template_name = 'reference_books/process_cycles-list-view.html'
     context_object_name = 'process_cycles'
     model = ProcessCycle
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['actions'] = [
+            {
+                'title': _('Добавить цикл'),
+                'url': '#',
+                'icon_class': 'la la-plus',
+            }
+        ]
+        return context

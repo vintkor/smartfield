@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib.gis import admin
 from django.contrib.gis.admin import OSMGeoAdmin
 from .models import (
     Currency,
@@ -19,6 +19,7 @@ from .models import (
     MachineryType,
     ProcessCycle,
 )
+from django.conf import settings
 
 
 @admin.register(Currency)
@@ -65,19 +66,19 @@ class SeedAdmin(admin.ModelAdmin):
     )
 
 
-class BingGeoAdmin(OSMGeoAdmin):
-    map_template = 'gis/admin/bing.html'
-
-
 @admin.register(Field)
-class FieldAdmin(BingGeoAdmin):
-    default_lon = 3649825
-    default_lat = 6349825
-    default_zoom = 4
-    map_width = 1000
-    map_height = 600
-    modifiable = True
+class FieldAdmin(admin.OSMGeoAdmin):
+    map_template = 'gis/admin/google.html'
+    extra_js = [
+        'https://maps.googleapis.com/maps/api/js?key={0}'.format(settings.GOOGLE_MAPS_API_KEY),
+    ]
+    map_width = 1200
+    map_height = 700
     save_on_top = True
+    modifiable = True
+    default_lon = 3503050
+    default_lat = 6278821
+    default_zoom = 6
 
     list_display = (
         'title',
