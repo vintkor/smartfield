@@ -9,11 +9,11 @@ function deleteElFromDomWithAnimation(el) {
 }
 
 // Подстановка в select2 поле данных из ответа сервера
-function resetSelect2(select2Element, response, propertyName) {
+function resetSelect2(select2Element, response, propertyName, title) {
     if (response[propertyName].length > 0) {
         select2Element.empty();
         response[propertyName].forEach(function (el) {
-            var newOption = new Option(el.title, el.id);
+            var newOption = new Option(el[title], el.id);
             select2Element.append(newOption).trigger('change');
             select2Element.prop("disabled", false);
         });
@@ -125,7 +125,7 @@ $(document).ready(function () {
                 agriculture_id: $(self).val()
             },
             success: function (response) {
-                resetSelect2(seedsSelect, response, 'seeds');
+                resetSelect2(seedsSelect, response, 'seeds', 'title');
             },
             error: function (e) {
                 console.log(e);
@@ -177,8 +177,9 @@ $(document).ready(function () {
                 work_id: workID
             },
             success: function (response) {
-                resetSelect2(unitSelect, response, 'units');
-                resetSelect2(techniqueForWorkSelect, response, 'technique');
+                console.log(response);
+                resetSelect2(unitSelect, response, 'units', 'title');
+                resetSelect2(techniqueForWorkSelect, response, 'technique', 'farming_techniques');
             },
             error: function (e) {
                 console.log(e);

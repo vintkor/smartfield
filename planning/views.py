@@ -50,9 +50,10 @@ class AddPlanView(LoginRequiredMixin, View):
                 'id': i.id,
                 'title': i.short_name,
             } for i in WorkType.objects.get(id=params.get('work_id')).units.all()]
+
             technique = [{
                 'id': i.id,
-                'machinery': i.machinery.title,
+                'farming_techniques': i.farming_techniques.title,
             } for i in WorkAndTechnique.objects.filter(work_type_id=params.get('work_id'))]
 
             return JsonResponse({
