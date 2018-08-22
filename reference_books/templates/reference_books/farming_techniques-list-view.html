@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Самоходная техника' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Самоходная техника' %}{% endblock page_name %}
@@ -18,6 +19,7 @@
                             <th>{% trans 'Тип техники' %}</th>
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Фото' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for farming_technique in farming_techniques %}
                             <tr>
@@ -28,6 +30,7 @@
                                         <img src="{{ farming_technique.photo.url }}" style="max-height: 50px;">
                                     {% endif %}
                                 </td>
+                                <td>{% insert_action_buttons 'FarmingTechniques' farming_technique %}</td>
                             </tr>
                         {% endfor %}
                     </table>

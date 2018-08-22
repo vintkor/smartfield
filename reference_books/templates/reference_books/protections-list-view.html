@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Средства защиты' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Средства защиты' %}{% endblock page_name %}
@@ -17,11 +18,13 @@
                         <tr>
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Производитель' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for protection in protections %}
                             <tr>
                                 <td>{{ protection.title }}</td>
                                 <td>{{ protection.manufacturer.title }}</td>
+                                <td>{% insert_action_buttons 'Protection' protection %}</td>
                             </tr>
                         {% endfor %}
                     </table>

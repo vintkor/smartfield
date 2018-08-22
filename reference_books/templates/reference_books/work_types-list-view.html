@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Спрачник - Виды работ' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Спрачник - Виды работ' %}{% endblock page_name %}
@@ -17,6 +18,7 @@
                         <tr>
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Ед. измерения' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for work_type in work_types %}
                             <tr>
@@ -26,6 +28,7 @@
                                         {{ unit.short_name }}
                                     {% endfor %}
                                 </td>
+                                <td>{% insert_action_buttons 'WorkType' work_type %}</td>
                             </tr>
                         {% endfor %}
                     </table>

@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник валют' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник валют' %}{% endblock page_name %}
@@ -16,10 +17,12 @@
                     <table class="table">
                         <tr>
                             <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for currency in currencies %}
                             <tr>
                                 <td>{{ currency.title }}</td>
+                                <td>{% insert_action_buttons 'Currency' currency %}</td>
                             </tr>
                         {% endfor %}
                     </table>

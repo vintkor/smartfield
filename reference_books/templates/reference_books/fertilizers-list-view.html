@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Удобрения' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Удобрения' %}{% endblock page_name %}
@@ -17,11 +18,13 @@
                         <tr>
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Произвадитель' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for fertilizer in fertilizers %}
                             <tr>
                                 <td>{{ fertilizer.title }}</td>
                                 <td>{{ fertilizer.manufacturer }}</td>
+                                <td>{% insert_action_buttons 'Fertilizer' fertilizer %}</td>
                             </tr>
                         {% endfor %}
                     </table>

@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Производители' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Производители' %}{% endblock page_name %}
@@ -18,12 +19,14 @@
                             <th>{% trans 'Название' %}</th>
                             <td>{% trans 'Телефон' %}</td>
                             <td>{% trans 'Телефон' %}</td>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for manufacture in manufacturers %}
                             <tr>
                                 <td>{{ manufacture.title }}</td>
                                 <td>{{ manufacture.phone }}</td>
                                 <td><a href="{{ manufacture.website }}" target="_blank">{{ manufacture.website }}</a></td>
+                                <td>{% insert_action_buttons 'Manufacturer' manufacture %}</td>
                             </tr>
                         {% endfor %}
                     </table>

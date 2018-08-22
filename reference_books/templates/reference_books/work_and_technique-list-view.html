@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Работа и техника' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Работа и техника' %}{% endblock page_name %}
@@ -19,6 +20,7 @@
                             <th>{% trans 'Техника' %}</th>
                             <th>{% trans 'Аггрегат' %}</th>
                             <th>{% trans 'Расход топлива' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for wat in work_and_technique %}
                             <tr>
@@ -26,6 +28,7 @@
                                 <td>{{ wat.farming_techniques.type.title }} {{ wat.farming_techniques.title }}</td>
                                 <td>{{ wat.machinery.type.title }} {{ wat.machinery.title }}</td>
                                 <td>{{ wat.fuel_rate }} {{ wat.fuel_rate_unit.short_name }}</td>
+                                <td>{% insert_action_buttons 'WorkAndTechnique' wat %}</td>
                             </tr>
                         {% endfor %}
                     </table>

@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Дополнительные затраты' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Дополнительные затраты' %}{% endblock page_name %}
@@ -16,10 +17,12 @@
                     <table class="table">
                         <tr>
                             <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for ae in additional_expenditure %}
                             <tr>
                                 <td>{{ ae.title }}</td>
+                                <td>{% insert_action_buttons 'AdditionalExpenditure' ae %}</td>
                             </tr>
                         {% endfor %}
                     </table>

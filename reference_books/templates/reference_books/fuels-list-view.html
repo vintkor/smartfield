@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Топливо' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Топливо' %}{% endblock page_name %}
@@ -16,10 +17,12 @@
                     <table class="table">
                         <tr>
                             <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for fuel in fuels %}
                             <tr>
                                 <td>{{ fuel.title }}</td>
+                                <td>{% insert_action_buttons 'Fuel' fuel %}</td>
                             </tr>
                         {% endfor %}
                     </table>

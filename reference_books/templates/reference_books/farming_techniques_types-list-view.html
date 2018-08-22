@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Тип самоходной техники' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Тип самоходной техники' %}{% endblock page_name %}
@@ -16,10 +17,12 @@
                     <table class="table">
                         <tr>
                             <th>{% trans 'Название' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for farming_techniques_type in farming_techniques_types %}
                             <tr>
                                 <td>{{ farming_techniques_type.title }}</td>
+                                <td>{% insert_action_buttons 'FarmingTechniquesType' farming_techniques_type %}</td>
                             </tr>
                         {% endfor %}
                     </table>

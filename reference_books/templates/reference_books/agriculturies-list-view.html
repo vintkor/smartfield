@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Агрокультуры' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Агрокультуры' %}{% endblock page_name %}
@@ -17,6 +18,7 @@
                         <tr>
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Фотография' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for agriculture in agriculturies %}
                             <tr>
@@ -26,6 +28,7 @@
                                         <img src="{{ agriculture.photo.url }}" style="max-height: 50px;">
                                     {% endif %}
                                 </td>
+                                <td>{% insert_action_buttons 'Agriculture' agriculture %}</td>
                             </tr>
                         {% endfor %}
                     </table>

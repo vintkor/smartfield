@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Единицы измерения' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Единицы измерения' %}{% endblock page_name %}
@@ -17,11 +18,13 @@
                         <tr>
                             <th>{% trans 'Полное название' %}</th>
                             <th>{% trans 'Аббревиатура' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for unit in units %}
                             <tr>
                                 <td>{{ unit.long_name }}</td>
                                 <td>{{ unit.short_name }}</td>
+                                <td>{% insert_action_buttons 'Unit' unit %}</td>
                             </tr>
                         {% endfor %}
                     </table>

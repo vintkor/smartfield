@@ -1,6 +1,7 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
+{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Прицепные аггрегаты' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Прицепные аггрегаты' %}{% endblock page_name %}
@@ -19,6 +20,7 @@
                             <th>{% trans 'Название' %}</th>
                             <th>{% trans 'Фото' %}</th>
                             <th>{% trans 'Допустимая техника' %}</th>
+                            <th>{% trans 'Действия' %}</th>
                         </tr>
                         {% for machinery in machineries %}
                             <tr>
@@ -34,6 +36,7 @@
                                         <a href="#" target="_blank">{{ technique.title }}</a>
                                     {% endfor %}
                                 </td>
+                                <td>{% insert_action_buttons 'Machinery' machinery %}</td>
                             </tr>
                         {% endfor %}
                     </table>

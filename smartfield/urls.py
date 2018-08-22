@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
+from django.conf.urls.static import static
 
 from .demo_view import DemoView
 from .view import DashboardView
@@ -29,7 +30,7 @@ urlpatterns = [
         path('profile/', include('user_profile.urls')),
         path('reference-books/', include('reference_books.urls')),
     ])),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
