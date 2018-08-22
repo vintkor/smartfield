@@ -25,6 +25,10 @@ function resetSelect2(select2Element, response, propertyName, title) {
 
 $(document).ready(function () {
 
+    // ====================================================================== //
+    // =========================  Установка csrf  =========================== //
+    // ====================================================================== //
+
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -145,7 +149,7 @@ $(document).ready(function () {
                 'action': 'add_plan_item'
             },
             success: function (response) {
-                table.append(response);
+                table.find('tbody').append(response);
                 table.find('.select2').select2({width: '100%'});
             },
             error: function (e) {
@@ -185,6 +189,23 @@ $(document).ready(function () {
                 console.log(e);
             }
         });
+
+    });
+
+    // ----------------------------- Изменение данных для полей ДРУГИЕ ----------------------------- //
+    $(document).on('change, input', '.other-parent', function () {
+        var otherParentValue = parseInt($(this).val());
+        var children = $(this).parents('tr').find('.other-child');
+
+        if (otherParentValue > 0) {
+            children.each(function (ind, el) {
+                $(el).removeAttr('disabled');
+            });
+        } else {
+            children.each(function (ind, el) {
+                $(el).attr('disabled', true);
+            });
+        }
 
     });
 

@@ -64,13 +64,24 @@
                 <div class="card-body">
                     <form action="">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="add-planning-table">
+                            <table class="table table-bordered foxFix" id="add-planning-table">
+                                <thead>
                                 <tr>
                                     <th rowspan="4">{% trans 'Работа' %}</th>
                                     <th rowspan="4">{% trans 'Ед. изм' %}</th>
                                     <th rowspan="4">{% trans 'Этап' %}</th>
                                     <th colspan="3">{% trans 'Объём работ' %}</th>
                                     <th colspan="3">{% trans 'Состав аггрегата' %}</th>
+                                    <th rowspan="4">{% trans 'Норма выработки' %}</th>
+                                    <th rowspan="4">{% trans 'К-во нормосмен механизаторов' %}</th>
+                                    <th rowspan="4">{% trans 'К-во нормосмен других' %}</th>
+                                    <th colspan="2">{% trans 'Затраты труда (человекочасы)' %}</th>
+                                    <th colspan="2">{% trans 'Оплата за норму по тарифу' %}</th>
+                                    <th colspan="2">{% trans 'Оплата по тарифу за весь объём' %}</th>
+                                    <th colspan="2">{% trans 'Коэфициент поощерений за качество работ' %}</th>
+                                    <th colspan="2">{% trans 'Всего по оплате труда' %}</th>
+                                    <th colspan="3">{% trans 'Топливо' %}</th>
+                                    <th colspan="8">{% trans 'Расходы на содержание основных средств' %}</th>
                                     <th rowspan="4">{% trans 'Действия' %}</th>
                                 </tr>
                                 <tr>
@@ -79,11 +90,43 @@
                                     <th rowspan="3">{% trans 'В условных' %}</th>
                                     <th rowspan="3">{% trans 'Техника' %}</th>
                                     <th colspan="2">{% trans 'Персонал' %}</th>
+                                    <th rowspan="3">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="3">{% trans 'Другие' %}</th>
+                                    <th rowspan="3">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="3">{% trans 'Другие' %}</th>
+                                    <th rowspan="3">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="3">{% trans 'Другие' %}</th>
+                                    <th rowspan="3">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="3">{% trans 'Другие' %}</th>
+                                    <th rowspan="3">{% trans 'Механизаторы' %}</th>
+                                    <th rowspan="3">{% trans 'Другие' %}</th>
+                                    <th colspan="2">{% trans 'К-во (л)' %}</th>
+                                    <th rowspan="3">{% trans 'Стоимость всего' %}</th>
+                                    <th colspan="4">{% trans 'Грн на 1 нормосмену' %}</th>
+                                    <th colspan="4">{% trans 'Грн, всего' %}</th>
                                 </tr>
                                 <tr>
                                     <th rowspan="2">{% trans 'Механизаторы' %}</th>
                                     <th rowspan="2">{% trans 'Другие' %}</th>
+                                    <th rowspan="2">{% trans 'На единицу работы' %}</th>
+                                    <th rowspan="2">{% trans 'На весь объём работ' %}</th>
+                                    <th colspan="2">{% trans 'Амортизация' %}</th>
+                                    <th colspan="2">{% trans 'Ремонты' %}</th>
+                                    <th colspan="2">{% trans 'Амортизация' %}</th>
+                                    <th colspan="2">{% trans 'Ремонты' %}</th>
                                 </tr>
+                                <tr>
+                                    <th>{% trans 'Самоходная техника' %}</th>
+                                    <th>{% trans 'Прицепные агрегаты' %}</th>
+                                    <th>{% trans 'Самоходная техника' %}</th>
+                                    <th>{% trans 'Прицепные агрегаты' %}</th>
+                                    <th>{% trans 'Самоходная техника' %}</th>
+                                    <th>{% trans 'Прицепные агрегаты' %}</th>
+                                    <th>{% trans 'Самоходная техника' %}</th>
+                                    <th>{% trans 'Прицепные агрегаты' %}</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </form>

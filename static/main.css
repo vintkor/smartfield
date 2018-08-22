@@ -3,10 +3,22 @@
 }
 
 .td-vertical-center td,
+#add-planning-table th,
 #add-planning-table td {
     vertical-align: middle;
 }
 
 #add-planning-table th {
     text-align: center;
+}
+
+#add-planning-table input[type="number"] {
+    min-width: 80px;
+}
+#add-planning-table tbody tr:hover {
+    background: rgba(115, 108, 200, .2);
+}
+
+#add-planning-table thead {
+    background: #f2f8ff;
 }
