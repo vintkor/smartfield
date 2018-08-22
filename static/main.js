@@ -64,6 +64,48 @@ $(document).ready(function () {
     });
 
     // ====================================================================== //
+    // =================   Удаление элементов в справочнике  ================ //
+    // ====================================================================== //
+
+    $('.delete-reference-book-row').click(function (e) {
+        e.preventDefault();
+
+        var model = $(this).data('model'),
+            pk = $(this).data('pk'),
+            self = this,
+            parentRow = $(this).parents('tr');
+
+        swal({
+            title: 'Вы уверены?',
+            text: "Это действие может привести к непредвиденным результатам!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да, удалить!'
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    url: window.location.origin
+                        + '/dashboard/reference-books/delete-any-row/'
+                        + model + '/'
+                        + pk + '/',
+                    method: 'post',
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status) {
+                            deleteElFromDomWithAnimation(parentRow);
+                            swal('Удалено!');
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        })
+
+    });
+
+    // ====================================================================== //
     // =======================   ДОБАВЛЕНИЕ ПЛАНА ПОЛЯ  ===================== //
     // ====================================================================== //
 

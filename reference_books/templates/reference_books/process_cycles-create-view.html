@@ -1,7 +1,6 @@
 {% extends 'cabinet/index.html' %}
 {% load static %}
 {% load i18n %}
-{% load reference_book_tags %}
 
 {% block page_title %}{% trans 'Справочник - Технологические циклы' %}{% endblock page_title %}
 {% block page_name %}{% trans 'Справочник - Технологические циклы' %}{% endblock page_name %}
@@ -14,18 +13,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table td-vertical-center">
-                        <tr>
-                            <th>{% trans 'Название' %}</th>
-                            <th>{% trans 'Действия' %}</th>
-                        </tr>
-                        {% for process_cycle in process_cycles %}
-                            <tr>
-                                <td>{{ process_cycle.title }}</td>
-                                <td>{% insert_action_buttons 'ProcessCycle' process_cycle %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+                    <form method="POST">
+                        {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                        <div class="form-group">
+                            <input type="submit" value="{% trans 'Сохранить' %}" class="btn btn-success">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -42,5 +41,4 @@
 
 
 {% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
-
 {% block footer_scripts %}{% endblock footer_scripts %}

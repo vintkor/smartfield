@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.views import View
 from .models import (
     Currency,
     Unit,
@@ -25,6 +27,31 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import FieldsCreateForm
 from django.utils.translation import ugettext as _
+from .forms import (
+    ProcessCycleCreateForm,
+)
+from django.apps import apps
+
+
+class DeleteAnyRowView(LoginRequiredMixin, View):
+    """
+    Удаление любой записи в моделях справочников по параметрам
+    """
+    login_url = reverse_lazy('user:login')
+
+    def post(self, request, model_name, model_pk):
+        model = apps.get_model(app_label='reference_books', model_name=model_name)
+        try:
+            model_item = model.objects.get(pk=model_pk)
+        except model.DoesNotExist:
+            return JsonResponse({
+                'status': False,
+            })
+
+        model_item.delete()
+        return JsonResponse({
+            'status': True,
+        })
 
 
 class CurrencyListView(LoginRequiredMixin, ListView):
@@ -156,8 +183,15 @@ class ProcessCycleListView(LoginRequiredMixin, ListView):
         context['actions'] = [
             {
                 'title': _('Добавить цикл'),
-                'url': '#',
+                'url': reverse_lazy('reference_books:process-cycle-add'),
                 'icon_class': 'la la-plus',
             }
         ]
         return context
+
+
+class ProcessCycleCreateFormView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('user:login')
+    form_class = ProcessCycleCreateForm
+    template_name = 'reference_books/process_cycles-create-view.html'
+    success_url = reverse_lazy('reference_books:process-cycle')
