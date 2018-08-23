@@ -116,6 +116,26 @@ $(document).ready(function () {
     // TODO Проверить, подключен ли select2 на странице
     $('.select2').select2();
 
+    // ---------------------------- Запись данных поля в data атрибут при выборе ---------------------------- //
+    $('#choice-field-id').on('change', function () {
+        var self = this;
+        $.ajax({
+            url: window.location.href,
+            data: {
+                action: 'get_field_data',
+                field_id: $(self).val()
+            },
+            success: function (response) {
+                if (response.status) {
+                    $(self).attr('data-field_data', JSON.stringify(response.field_data));
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
     // ----------------------------- Подстановка доступных семян при выборе культуры ----------------------------- //
     $('#choice-agriculture-id').change(function () {
         var self = this;
@@ -141,12 +161,14 @@ $(document).ready(function () {
     $('#add-planning-add-row').click(function (e) {
         e.preventDefault();
         var table = $('#add-planning-table');
+        var field_square = $('#choice-field-id').data('field_data').square;
 
         $.ajax({
             url: window.location.href,
             method: 'get',
             data: {
-                'action': 'add_plan_item'
+                'action': 'add_plan_item',
+                'field_square': field_square
             },
             success: function (response) {
                 table.find('tbody').append(response);
@@ -204,6 +226,7 @@ $(document).ready(function () {
         } else {
             children.each(function (ind, el) {
                 $(el).attr('disabled', true);
+                $(el).val('');
             });
         }
 

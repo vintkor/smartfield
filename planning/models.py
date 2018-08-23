@@ -19,6 +19,7 @@ class Plan(models.Model):
     field = models.ForeignKey(Field, on_delete=models.CASCADE, verbose_name=_('Поле'))
     agriculture = models.ForeignKey(Agriculture, on_delete=models.CASCADE, verbose_name=_('Агрокультура'))
     seed = models.ForeignKey(Seed, on_delete=models.CASCADE, verbose_name=_('Семена'))
+    coefficient = models.DecimalField(verbose_name=_('Коэффициент перерасчёта'), default=1, max_digits=6, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name=_('Дата создания'))
     updated = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name=_('Дата обновления'))
 

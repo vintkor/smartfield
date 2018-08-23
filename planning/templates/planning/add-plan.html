@@ -20,7 +20,8 @@
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <select name="choice-field" id="choice-field-id" class="form-control select2">
+                                    <label>{% trans 'Поле' %}</label>
+                                    <select name="choice-field" id="choice-field-id" class="form-control select2" data-field_data="">
                                         <option disabled selected>{% trans 'Выбрать поле' %}</option>
                                         {% for field in fields %}
                                             <option value="{{ field.id }}">{{ field.title }}</option>
@@ -30,6 +31,7 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
+                                    <label>{% trans 'Культура' %}</label>
                                     <select name="choice-agriculture" id="choice-agriculture-id" class="form-control select2">
                                         <option disabled selected>{% trans 'Выбрать культуру' %}</option>
                                         {% for agriculture in agricultures %}
@@ -40,6 +42,7 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
+                                    <label>{% trans 'Семена' %}</label>
                                     <select name="choice-agriculture" id="choice-seeds-id" class="form-control select2" disabled>
                                         <option disabled selected>{% trans 'Выбрать семена' %}</option>
                                     </select>
@@ -47,7 +50,17 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-success btn-block" value="{% trans 'Сохранить и продолжить' %}">
+                                    <div class="form-group">
+                                        <label>{% trans 'Коэффициент перерасчёта' %}</label>
+                                        <input type="number" min="0" step="0.01" value="1" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success btn-block btn-floating btn-rounded" value="{% trans 'Сохранить и продолжить' %}">
                                 </div>
                             </div>
                         </div>
@@ -134,10 +147,10 @@
                 <div class="container-fluid">
                     <div class="row m-b-20">
                         <div class="col-8">
-                            <button class="btn btn-success btn-block" id="add-planning-add-row">+</button>
+                            <button class="btn btn-success btn-block btn-floating btn-rounded" id="add-planning-add-row">+</button>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-info btn-block">{% trans 'Пересчитать' %}</button>
+                            <button class="btn btn-info btn-block btn-floating btn-rounded">{% trans 'Пересчитать' %}</button>
                         </div>
                     </div>
                 </div>

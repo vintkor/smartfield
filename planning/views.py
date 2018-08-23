@@ -1,3 +1,5 @@
+import decimal
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
@@ -32,6 +34,17 @@ class AddPlanView(LoginRequiredMixin, View):
 
         action = params.get('action')
 
+        if action == 'get_field_data' and params.get('field_id'):
+            field = Field.objects.get(id=params.get('field_id'))
+            field_data = {
+                'square': field.square,
+                'rent_cost': field.rent_cost,
+            }
+            return JsonResponse({
+                'status': True,
+                'field_data': field_data,
+            })
+
         if action == 'get_seeds' and params.get('agriculture_id'):
             seeds = [
                 {
@@ -62,10 +75,11 @@ class AddPlanView(LoginRequiredMixin, View):
                 'technique': technique,
             })
 
-        if action == 'add_plan_item':
+        if action == 'add_plan_item' and params.get('field_square'):
             context = {
                 'works': WorkType.objects.all(),
                 'process_cycles': ProcessCycle.objects.values('id', 'title').all(),
+                'field_square': decimal.Decimal(params.get('field_square')),
             }
             return render(request, 'planning/partials/_add-plan-table-row.html', context)
 

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n l10n %}
 
 <tr>
     <td>
@@ -30,7 +30,7 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="number" class="form-control" readonly>
+            <input type="number" class="form-control" value="{{ field_square|unlocalize }}" readonly>
         </div>
     </td>
     <td>
@@ -50,17 +50,17 @@
     </td>
     <td>
         <div class="form-group">
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" min="0" value="0">
         </div>
     </td>
     <td>
         <div class="form-group">
-            <input type="number" class="form-control other-parent" min="0">
+            <input type="number" class="form-control other-parent" min="0" value="0">
         </div>
     </td>
     <td>
         <div class="form-group">
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" value="0">
         </div>
     </td>
     <td>

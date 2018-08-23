@@ -14,6 +14,10 @@ class PlanItemInline(admin.TabularInline):
 class PlanAdmin(admin.ModelAdmin):
     list_display = (
         'title',
+        'field',
+        'agriculture',
+        'seed',
+        'coefficient',
         'created',
         'updated',
     )
