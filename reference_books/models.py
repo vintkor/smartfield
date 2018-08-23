@@ -232,6 +232,17 @@ class WorkAndTechnique(models.Model):
     machinery = models.ForeignKey(Machinery, on_delete=models.CASCADE, verbose_name=_('Прицепной аггрегат'), blank=True, null=True)
     fuel_rate = models.DecimalField(verbose_name=_('Расход топлива'), decimal_places=4, max_digits=10)
     fuel_rate_unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name=_('Ед. измерения расхода топлива'))
+    composition_driver = models.PositiveSmallIntegerField(verbose_name=_('Состав аггрегата - механизаторы'), blank=True, null=True)
+    composition_others = models.PositiveSmallIntegerField(verbose_name=_('Состав аггрегата - другие'), blank=True, null=True)
+    output_rate = models.DecimalField(max_digits=15, decimal_places=4, verbose_name=_('Норма выработки'), blank=True, null=True)
+    coast_for_output_rate_driver = models.DecimalField(
+        max_digits=15, decimal_places=4, verbose_name=_('Оплата за норму по тарифу - механизаторы'), blank=True, null=True)
+    coast_for_output_rate_others = models.DecimalField(
+        max_digits=15, decimal_places=4, verbose_name=_('Оплата за норму по тарифу - другие'), blank=True, null=True)
+    coefficient_for_quality_driver = models.DecimalField(
+        max_digits=5, decimal_places=3, verbose_name=_('Коэфициент за качество - механизаторы'), blank=True, null=True)
+    coefficient_for_quality_others = models.DecimalField(
+        max_digits=5, decimal_places=3, verbose_name=_('Коэфициент за качество - другие'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Работа и техника')
