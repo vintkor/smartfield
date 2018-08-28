@@ -83,4 +83,19 @@ class AddPlanView(LoginRequiredMixin, View):
             }
             return render(request, 'planning/partials/_add-plan-table-row.html', context)
 
+        if action == 'get_data_by_work_and_technique' and params.get('work_and_technique_id'):
+            work_and_technique = WorkAndTechnique.objects.get(id=params.get('work_and_technique_id'))
+
+            return JsonResponse({
+                'status': True,
+                'composition_driver': work_and_technique.composition_driver,
+                'composition_others': work_and_technique.composition_others,
+                'output_rate': work_and_technique.output_rate,
+                'coast_for_output_rate_driver': work_and_technique.coast_for_output_rate_driver,
+                'coast_for_output_rate_others': work_and_technique.coast_for_output_rate_others,
+                'coefficient_for_quality_driver': work_and_technique.coefficient_for_quality_driver,
+                'coefficient_for_quality_others': work_and_technique.coefficient_for_quality_others,
+                'fuel_rate': work_and_technique.fuel_rate,
+            })
+
         return HttpResponseBadRequest()

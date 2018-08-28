@@ -138,6 +138,22 @@ class Fuel(models.Model):
         return self.title
 
 
+class FuelCoast(models.Model):
+    """
+    Стоимость топлива
+    """
+    fuel = models.ForeignKey(Fuel, on_delete=models.CASCADE, verbose_name=_('Топливо'))
+    price = models.DecimalField(max_digits=10, decimal_places=4, verbose_name=_('Цена'))
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name=_('Дата создания'))
+
+    class Meta:
+        verbose_name = _('Стоимость топлива')
+        verbose_name_plural = _('Стоимость топлива')
+
+    def __str__(self):
+        return str(self.price)
+
+
 class WorkType(models.Model):
     """
     Вид работ

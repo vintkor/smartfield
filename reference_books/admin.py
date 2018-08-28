@@ -8,6 +8,7 @@ from .models import (
     Seed,
     Field,
     Fuel,
+    FuelCoast,
     WorkType,
     FarmingTechniques,
     Machinery,
@@ -66,6 +67,21 @@ class SeedAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(FuelCoast)
+class FuelCoastAdmin(admin.ModelAdmin):
+    list_display = (
+        'fuel',
+        'price',
+        'created',
+    )
+    list_filter = ('fuel',)
+
+
+class FuelCoastInline(admin.TabularInline):
+    extra = 0
+    model = FuelCoast
+
+
 @admin.register(Field)
 class FieldAdmin(admin.OSMGeoAdmin):
     map_template = 'gis/admin/google.html'
@@ -92,7 +108,9 @@ class FieldAdmin(admin.OSMGeoAdmin):
 
 @admin.register(Fuel)
 class FuelAdmin(admin.ModelAdmin):
-    pass
+    inlines = (
+        FuelCoastInline,
+    )
 
 
 @admin.register(WorkType)

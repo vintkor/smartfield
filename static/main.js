@@ -232,5 +232,120 @@ $(document).ready(function () {
 
     });
 
+    //
+
+    function set_data_after_technique_for_work_change(rowParent, data, el_class) {
+        $(rowParent).find('.' + el_class).val(data);
+    }
+
+    function recountRowData(row) {
+        var composition_driver = $(row).find('.composition_driver'),
+            composition_others = $(row).find('.composition_others'),
+            output_rate = $(row).find('.output_rate'),
+            coast_for_output_rate_driver = $(row).find('.coast_for_output_rate_driver'),
+            coast_for_output_rate_others = $(row).find('.coast_for_output_rate_others'),
+            coefficient_for_quality_driver = $(row).find('.coefficient_for_quality_driver'),
+            coefficient_for_quality_others = $(row).find('.coefficient_for_quality_others'),
+            fuel_rate = $(row).find('.fuel_rate'),
+            coefficient_recount = parseFloat($('.coefficient_recount').val()),
+            volume_start = parseFloat($('.volume_start').val());
+
+        var volume_finish = volume_start * coefficient_recount;
+        $(row).find('.volume_finish').val(volume_finish);
+
+        // К-во нормосмен механизаторов
+        var output_rate_driver = 0;
+        if (parseFloat(composition_driver.val()) >= 1) {
+            output_rate_driver = volume_finish / parseFloat(output_rate.val());
+        }
+        $(row).find('.output_rate_driver').val(output_rate_driver);
+
+        // К-во нормосмен других
+        var output_rate_other = 0;
+        if (parseFloat(composition_others.val()) >= 1) {
+            output_rate_other = volume_finish / parseFloat(output_rate.val());
+        }
+        $(row).find('.output_rate_other').val(output_rate_other);
+
+        // Затраты труда (человекочасы) механизаторов
+        var labor_coast_driver = 0;
+        if (output_rate_driver > 0) {
+            labor_coast_driver = output_rate_driver * 7;
+        }
+        $(row).find('.labor_coast_driver').val(labor_coast_driver);
+
+        // Затраты труда (человекочасы) других
+        var labor_coast_other = 0;
+        if (output_rate_driver > 0) {
+            labor_coast_other = output_rate_driver * 7;
+        }
+        $(row).find('.labor_coast_other').val(labor_coast_other);
+
+        // Оплата по тарифу за весь объём механизаторов
+        var coast_for_all_output_rate_driver = 0;
+        if (output_rate_driver > 0) {
+            coast_for_all_output_rate_driver = output_rate_driver * parseFloat(coast_for_output_rate_driver.val());
+        }
+        $(row).find('.coast_for_all_output_rate_driver').val(coast_for_all_output_rate_driver);
+
+        // Оплата по тарифу за весь объём других
+        var coast_for_all_output_rate_others = 0;
+        if (output_rate_other > 0) {
+            coast_for_all_output_rate_others = output_rate_other * parseFloat(coast_for_output_rate_driver.val());
+        }
+        $(row).find('.coast_for_all_output_rate_others').val(coast_for_all_output_rate_others);
+
+        // Всего по оплате труда механизаторов
+        var all_salary_drivers = 0;
+        if (coast_for_all_output_rate_driver > 0){
+            all_salary_drivers = coast_for_all_output_rate_driver + coast_for_all_output_rate_driver * parseFloat(coefficient_for_quality_driver.val());
+        }
+        $(row).find('.all_salary_drivers').val(all_salary_drivers);
+
+        // Всего по оплате труда других
+        var all_salary_others = 0;
+        if (coast_for_all_output_rate_driver > 0){
+            all_salary_others = coast_for_all_output_rate_others + coast_for_all_output_rate_others * parseFloat(coefficient_for_quality_others.val());
+        }
+        $(row).find('.all_salary_others').val(all_salary_others);
+
+        // Топливо На весь объём работ
+        var all_fuel = 0;
+        if (parseFloat(fuel_rate.val()) > 0) {
+            all_fuel = parseFloat(fuel_rate.val()) * volume_finish;
+        }
+        $(row).find('.all_fuel').val(all_fuel);
+
+    }
+
+    $(document).on('change', '.planning-add-row-technique-for-work', function () {
+        var workAndTecniqueID = $(this).val();
+        var rowParent = $(this).parents('tr');
+
+        $.ajax({
+            url: window.location.href,
+            data: {
+                action: 'get_data_by_work_and_technique',
+                work_and_technique_id: workAndTecniqueID
+            },
+            success: function (response) {
+                set_data_after_technique_for_work_change(rowParent, response.composition_driver, 'composition_driver');
+                set_data_after_technique_for_work_change(rowParent, response.composition_others, 'composition_others');
+                set_data_after_technique_for_work_change(rowParent, response.output_rate, 'output_rate');
+                set_data_after_technique_for_work_change(rowParent, response.coast_for_output_rate_driver, 'coast_for_output_rate_driver');
+                set_data_after_technique_for_work_change(rowParent, response.coast_for_output_rate_others, 'coast_for_output_rate_others');
+                set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_driver, 'coefficient_for_quality_driver');
+                set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_others, 'coefficient_for_quality_others');
+                set_data_after_technique_for_work_change(rowParent, response.fuel_rate, 'fuel_rate');
+
+                recountRowData(rowParent);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    });
+
 });
 
