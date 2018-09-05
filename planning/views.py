@@ -14,6 +14,7 @@ from reference_books.models import (
     WorkType,
     ProcessCycle,
     WorkAndTechnique,
+    FuelCoast,
 )
 
 
@@ -26,9 +27,10 @@ class AddPlanView(LoginRequiredMixin, View):
         print(params)
 
         if not params:
+            agricultures = Agriculture.objects.prefetch_related('work_type').all()
             context = {
                 'fields': Field.objects.values('id', 'title').all(),
-                'agricultures': Agriculture.objects.values('id', 'title').all(),
+                'agricultures': agricultures,
             }
             return render(request, 'planning/add-plan.html', context)
 
@@ -49,7 +51,7 @@ class AddPlanView(LoginRequiredMixin, View):
             seeds = [
                 {
                     'id': i['id'],
-                    'title': i['title'],
+                    'title': i['title']
                 } for i in Seed.objects.values('id', 'title').filter(agriculture_id=params.get('agriculture_id'))
             ]
 
@@ -67,6 +69,10 @@ class AddPlanView(LoginRequiredMixin, View):
             technique = [{
                 'id': i.id,
                 'farming_techniques': i.farming_techniques.title,
+                'fuel_price': FuelCoast.objects.filter(fuel=i.fuel).first().price,
+                'data_attr': [
+                    {'name': 'fuel-price', 'value': FuelCoast.objects.filter(fuel=i.fuel).first().price},
+                ]
             } for i in WorkAndTechnique.objects.filter(work_type_id=params.get('work_id'))]
 
             return JsonResponse({
@@ -76,11 +82,15 @@ class AddPlanView(LoginRequiredMixin, View):
             })
 
         if action == 'add_plan_item' and params.get('field_square'):
+            current_work_id = params.get('current_work_id')
             context = {
                 'works': WorkType.objects.all(),
                 'process_cycles': ProcessCycle.objects.values('id', 'title').all(),
-                'field_square': decimal.Decimal(params.get('field_square')),
+                'field_square': decimal.Decimal(params.get('field_square'))
             }
+            if current_work_id:
+                context['current_work_id'] = int(current_work_id)
+
             return render(request, 'planning/partials/_add-plan-table-row.html', context)
 
         if action == 'get_data_by_work_and_technique' and params.get('work_and_technique_id'):

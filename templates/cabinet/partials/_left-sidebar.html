@@ -11,7 +11,31 @@
                 </li>
                 <li class="nav-dropdown">
                     <a class="has-arrow" href="#" aria-expanded="false">
-                        <i class="icon dripicons-article"></i><span>{% trans 'Справочники' %}</span>
+                        <i class="la la-mortar-board"></i><span>{% trans 'Планирование' %}</span>
+                    </a>
+                    <ul class="collapse nav-sub" aria-expanded="false">
+                        <li><a href="{% url 'planning:add-plan' %}"><span>{% trans 'Сделать планирование поля' %}</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow" href="#" aria-expanded="false">
+                        <i class="zmdi zmdi-spellcheck zmdi-hc-fw"></i><span>{% trans 'Мониторинг и контроль' %}</span>
+                    </a>
+{#                    <ul class="collapse nav-sub" aria-expanded="false">#}
+{#                        <li><a href="#"><span>{% trans 'Сделать планирование поля' %}</span></a></li>#}
+{#                    </ul>#}
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow" href="#" aria-expanded="false">
+                        <i class="la la-line-chart"></i><span>{% trans 'Аналитика' %}</span>
+                    </a>
+{#                    <ul class="collapse nav-sub" aria-expanded="false">#}
+{#                        <li><a href="#"><span>{% trans 'Сделать планирование поля' %}</span></a></li>#}
+{#                    </ul>#}
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow" href="#" aria-expanded="false">
+                        <i class="zmdi zmdi-storage zmdi-hc-fw"></i><span>{% trans 'Справочники' %}</span>
                     </a>
                     <ul class="collapse nav-sub" aria-expanded="false">
                         <li><a href="{% url 'reference_books:process-cycle' %}"><span>{% trans 'Технологические циклы' %}</span></a></li>
@@ -31,14 +55,6 @@
                         <li><a href="{% url 'reference_books:unit' %}"><span>{% trans 'Единицы измерения' %}</span></a></li>
                         <li><a href="{% url 'reference_books:manufacturer' %}"><span>{% trans 'Производители' %}</span></a></li>
                         <li><a href="{% url 'reference_books:fuel' %}"><span>{% trans 'Топливо' %}</span></a></li>
-                    </ul>
-                </li>
-                <li class="nav-dropdown">
-                    <a class="has-arrow" href="index.html#" aria-expanded="false">
-                        <i class="icon dripicons-article"></i><span>{% trans 'Планирование' %}</span>
-                    </a>
-                    <ul class="collapse nav-sub" aria-expanded="false">
-                        <li><a href="{% url 'planning:add-plan' %}"><span>{% trans 'Сделать планирование поля' %}</span></a></li>
                     </ul>
                 </li>
             </ul>

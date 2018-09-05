@@ -6,7 +6,7 @@
             <select name="" class="select2 form-control planning-add-row-choice-work">
                 <option disabled selected>{% trans 'Выбрать работу' %}</option>
                 {% for work in works %}
-                    <option value="{{ work.id }}">{{ work.title }}</option>
+                    <option value="{{ work.id }}" {% if current_work_id == work.id %}selected{% endif %}>{{ work.title }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -28,17 +28,17 @@
             </select>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control volume_start" value="{{ field_square|unlocalize }}" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control volume_finish" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" readonly>
         </div>
@@ -48,139 +48,139 @@
             <option disabled selected>{% trans 'Выбрать технику' %}</option>
         </select>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control composition_driver" min="0" value="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control composition_others other-parent" min="0" value="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control output_rate" value="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control output_rate_driver" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control output_rate_other" readonly>
         </div>
     </td>
     {# Затраты труда (человекочасы) #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control labor_coast_driver" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control other-child labor_coast_other" min="0" readonly>
         </div>
     </td>
     {# Оплата за норму по тарифу #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control coast_for_output_rate_driver" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control other-child coast_for_output_rate_others" min="0" readonly>
         </div>
     </td>
     {# Оплата по тарифу за весь объём #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control coast_for_all_output_rate_driver" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control other-child coast_for_all_output_rate_others" min="0" readonly>
         </div>
     </td>
     {# Коэфициент поощерений за качество работ #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control coefficient_for_quality_driver" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control other-child coefficient_for_quality_others" min="0" readonly>
         </div>
     </td>
     {# Всего по оплате труда #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control all_salary_drivers" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control other-child all_salary_others" min="0" readonly>
         </div>
     </td>
     {# Топливо #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control fuel_rate" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control all_fuel" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
-            <input type="number" class="form-control" min="0" readonly>
+            <input type="number" class="form-control all_fuel_coast" min="0" readonly>
         </div>
     </td>
     {# Расходы на содержание основных средств #}
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>
     </td>
-    <td>
+    <td class="is_hidden can_hide">
         <div class="form-group">
             <input type="number" class="form-control" min="0" readonly>
         </div>

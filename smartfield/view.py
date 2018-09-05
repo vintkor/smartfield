@@ -8,5 +8,7 @@ class DashboardView(LoginRequiredMixin, View):
     login_url = reverse_lazy('user:login')
 
     def get(self, request):
-        context = {}
+        context = {
+            'show_fake_data': True
+        }
         return render(request, 'cabinet/index.html', context)

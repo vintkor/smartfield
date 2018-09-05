@@ -69,10 +69,12 @@ class Agriculture(models.Model):
     title = models.CharField(max_length=250, verbose_name=_('Название'))
     photo = models.ImageField(upload_to='reference_books', blank=True, null=True)
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
+    work_type = models.ManyToManyField('reference_books.WorkType')
 
     class Meta:
         verbose_name = _('Агрокультура')
         verbose_name_plural = _('Агрокультуры')
+        ordering = ('id',)
 
     def __str__(self):
         return self.title
@@ -246,6 +248,7 @@ class WorkAndTechnique(models.Model):
     work_type = models.ForeignKey(WorkType, on_delete=models.CASCADE, verbose_name=_('Вид работ'))
     farming_techniques = models.ForeignKey(FarmingTechniques, on_delete=models.CASCADE, verbose_name=_('Самоходная техника'))
     machinery = models.ForeignKey(Machinery, on_delete=models.CASCADE, verbose_name=_('Прицепной аггрегат'), blank=True, null=True)
+    fuel = models.ForeignKey(Fuel, on_delete=models.CASCADE, verbose_name=_('Топливо'))
     fuel_rate = models.DecimalField(verbose_name=_('Расход топлива'), decimal_places=4, max_digits=10)
     fuel_rate_unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name=_('Ед. измерения расхода топлива'))
     composition_driver = models.PositiveSmallIntegerField(verbose_name=_('Состав аггрегата - механизаторы'), blank=True, null=True)

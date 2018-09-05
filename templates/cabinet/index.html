@@ -175,7 +175,11 @@
 				<!--START PAGE CONTENT -->
 				<section class="page-content container-fluid">
 
-					{% block content %}{% endblock content %}
+					{% block content %}
+                        {% if show_fake_data %}
+                            {% include 'cabinet/partials/_fake_data.html' %}
+                        {% endif %}
+					{% endblock content %}
 
                 </section>
                 <!--END PAGE CONTENT -->
@@ -194,17 +198,29 @@
     <script src="{% static '' %}quantum-pro/assets/vendor/switchery-npm/index.js"></script>
     <script src="{% static '' %}quantum-pro/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- ================== PAGE LEVEL VENDOR SCRIPTS ==================-->
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/countup.js/dist/countUp.min.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/chart.js/dist/Chart.bundle.min.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.resize.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.time.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/flot.curvedlines/curvedLines.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/datatables.net/js/jquery.dataTables.js"></script>#}
-{#    <script src="{% static '' %}quantum-pro/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>#}
+    {% if show_fake_data %}
+        <script src="{% static '' %}quantum-pro/assets/vendor/countup.js/dist/countUp.min.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/chart.js/dist/Chart.bundle.min.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.resize.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/flot/jquery.flot.time.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/flot.curvedlines/curvedLines.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/datatables.net/js/jquery.dataTables.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    {% endif %}
     <!-- ================== GLOBAL APP SCRIPTS ==================-->
     <script src="{% static 'quantum-pro/assets/vendor/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+    {% if show_fake_data %}
+        <script src="{% static '' %}quantum-pro/assets/js/components/countUp-init.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/counter-group.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/recent-transactions.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/monthly-budget.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/users-chart.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/bounce-rate-chart.js"></script>
+        <script src="{% static '' %}quantum-pro/assets/js/cards/session-duration-chart.js"></script>
+    {% endif %}
     {% block footer_vendor_scripts %}{% endblock footer_vendor_scripts %}
     <script src="{% static '' %}quantum-pro/assets/js/global/app.js"></script>
     <script src="{% static '' %}main.js"></script>

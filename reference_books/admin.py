@@ -49,7 +49,7 @@ class ManufacturerAdmin(admin.ModelAdmin):
 
 @admin.register(Agriculture)
 class AgricultureAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('work_type',)
 
 
 @admin.register(Seed)

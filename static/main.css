@@ -23,3 +23,6 @@
 #add-planning-table thead {
     background: #f2f8ff;
 }
+.is_hidden {
+    display: none;
+}

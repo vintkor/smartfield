@@ -11,9 +11,15 @@ function deleteElFromDomWithAnimation(el) {
 // Подстановка в select2 поле данных из ответа сервера
 function resetSelect2(select2Element, response, propertyName, title) {
     if (response[propertyName].length > 0) {
+        // console.log(select2Element);
         select2Element.empty();
         response[propertyName].forEach(function (el) {
             var newOption = new Option(el[title], el.id);
+            if ("data_attr" in el) {
+                el.data_attr.map(function (attr) {
+                    $(newOption).attr('data-' + attr.name, attr.value);
+                });
+            }
             select2Element.append(newOption).trigger('change');
             select2Element.prop("disabled", false);
         });
@@ -24,6 +30,20 @@ function resetSelect2(select2Element, response, propertyName, title) {
 }
 
 $(document).ready(function () {
+
+    $('#show-data').click(function (e) {
+        e.preventDefault();
+        $('body').find('.can_hide').removeClass('is_hidden');
+        $('#hide-data').removeClass('is_hidden');
+        $(this).addClass('is_hidden');
+    });
+
+    $('#hide-data').click(function (e) {
+        e.preventDefault();
+        $('body').find('.can_hide').addClass('is_hidden');
+        $('#show-data').removeClass('is_hidden');
+        $(this).addClass('is_hidden');
+    });
 
     // ====================================================================== //
     // =========================  Установка csrf  =========================== //
@@ -94,7 +114,7 @@ $(document).ready(function () {
                         + pk + '/',
                     method: 'post',
                     success: function (response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.status) {
                             deleteElFromDomWithAnimation(parentRow);
                             swal('Удалено!');
@@ -157,28 +177,41 @@ $(document).ready(function () {
         });
     });
 
-    // ----------------------------- Добавление строки ----------------------------- //
-    $('#add-planning-add-row').click(function (e) {
-        e.preventDefault();
+    function addRowData(current_work_id, callback) {
         var table = $('#add-planning-table');
         var field_square = $('#choice-field-id').data('field_data').square;
+        var send_data = {
+            'action': 'add_plan_item',
+            'field_square': field_square
+        };
+
+        if (current_work_id) {
+            send_data.current_work_id = current_work_id;
+        }
 
         $.ajax({
             url: window.location.href,
             method: 'get',
-            data: {
-                'action': 'add_plan_item',
-                'field_square': field_square
-            },
+            data: send_data,
             success: function (response) {
-                table.find('tbody').append(response);
+                var link = $(response);
+                table.find('tbody').append(link);
                 table.find('.select2').select2({width: '100%'});
+
+                if (callback) {
+                    callback(link);
+                }
             },
             error: function (e) {
                 console.log(e)
             }
         });
+    }
 
+    // ----------------------------- Добавление строки ----------------------------- //
+    $('#add-planning-add-row').click(function (e) {
+        e.preventDefault();
+        addRowData(false);
     });
 
     // ----------------------------- Удаление строки ----------------------------- //
@@ -190,10 +223,11 @@ $(document).ready(function () {
     });
 
     // ----------------------------- Подстановка ед измерения в добавленой строке ----------------------------- //
-    $(document).on('change', '.planning-add-row-choice-work', function () {
-        var workID = $(this).val();
-        var unitSelect = $(this).parents('tr').find('.planning-add-row-choice-work-unit');
-        var techniqueForWorkSelect = $(this).parents('tr').find('.planning-add-row-technique-for-work');
+
+    function changeWorkAndTechnique(row) {
+        var workID = $(row).val();
+        var unitSelect = $(row).parents('tr').find('.planning-add-row-choice-work-unit');
+        var techniqueForWorkSelect = $(row).parents('tr').find('.planning-add-row-technique-for-work');
 
         $.ajax({
             url: window.location.href,
@@ -203,7 +237,6 @@ $(document).ready(function () {
                 work_id: workID
             },
             success: function (response) {
-                console.log(response);
                 resetSelect2(unitSelect, response, 'units', 'title');
                 resetSelect2(techniqueForWorkSelect, response, 'technique', 'farming_techniques');
             },
@@ -211,7 +244,11 @@ $(document).ready(function () {
                 console.log(e);
             }
         });
+    }
 
+
+    $(document).on('change', '.planning-add-row-choice-work', function () {
+        changeWorkAndTechnique(this);
     });
 
     // ----------------------------- Изменение данных для полей ДРУГИЕ ----------------------------- //
@@ -311,10 +348,21 @@ $(document).ready(function () {
 
         // Топливо На весь объём работ
         var all_fuel = 0;
-        if (parseFloat(fuel_rate.val()) > 0) {
-            all_fuel = parseFloat(fuel_rate.val()) * volume_finish;
+        var fuel_rate_float = parseFloat(fuel_rate.val());
+        if (fuel_rate_float > 0) {
+            all_fuel = fuel_rate_float * volume_finish;
         }
         $(row).find('.all_fuel').val(all_fuel);
+
+        // Топливо Стоимость всего
+        var all_fuel_coast = 0;
+        var planning_add_row_technique_for_work = $(row).find('.planning-add-row-technique-for-work');
+        var currentOption = planning_add_row_technique_for_work[0].options[planning_add_row_technique_for_work[0].selectedIndex];
+        // console.log($(currentOption).data('fuel-price'));
+        if (parseFloat(fuel_rate.val()) > 0) {
+            all_fuel_coast = parseFloat($(currentOption).data('fuel-price')) * volume_finish;
+        }
+        $(row).find('.all_fuel_coast').val(all_fuel_coast);
 
     }
 
@@ -337,7 +385,7 @@ $(document).ready(function () {
                 set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_driver, 'coefficient_for_quality_driver');
                 set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_others, 'coefficient_for_quality_others');
                 set_data_after_technique_for_work_change(rowParent, response.fuel_rate, 'fuel_rate');
-
+                // =>
                 recountRowData(rowParent);
             },
             error: function (e) {
@@ -345,6 +393,29 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    var showTable = false;
+
+    if (!showTable) {
+        $('#data-table').hide();
+    }
+
+    $('#choice-field-id').change(function () {
+        $('#data-table').show();
+    });
+
+    // ----------------------------------- PLANING Magic button -----------------------------------
+    $(document).on('click', '#magic-button', function (e) {
+        e.preventDefault();
+        var select = $('#choice-agriculture-id');
+        var work_types = $(select[0].options[select[0].selectedIndex]).data('works');
+        $('#add-planning-table').find('tbody').html('');
+        work_types.map(function (work_id) {
+            addRowData(work_id, function (rows) {
+                changeWorkAndTechnique($(rows).find('.planning-add-row-choice-work')[0]);
+            });
+        });
     });
 
 });
