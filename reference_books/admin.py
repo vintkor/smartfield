@@ -49,6 +49,11 @@ class ManufacturerAdmin(admin.ModelAdmin):
 
 @admin.register(Agriculture)
 class AgricultureAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'order',
+    )
+    list_editable = ('order',)
     filter_horizontal = ('work_type',)
 
 
@@ -151,6 +156,8 @@ class WorkAndTechniqueAdmin(admin.ModelAdmin):
         'machinery',
         'fuel_rate',
         'fuel_rate_unit',
+        'period_start',
+        'period_end',
     )
     list_filter = (
         'work_type',

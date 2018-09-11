@@ -70,6 +70,7 @@ class Agriculture(models.Model):
     photo = models.ImageField(upload_to='reference_books', blank=True, null=True)
     desc = models.TextField(blank=True, null=True, verbose_name=_('Описание'))
     work_type = models.ManyToManyField('reference_books.WorkType')
+    order = models.PositiveSmallIntegerField(verbose_name=_('Рекоммендуемый порядок посева'), default=100)
 
     class Meta:
         verbose_name = _('Агрокультура')
@@ -99,6 +100,7 @@ class Seed(models.Model):
         return self.title
 
 
+# TODO Добавить историю посевов
 class Field(models.Model):
     """
     Карта полей
@@ -262,6 +264,8 @@ class WorkAndTechnique(models.Model):
         max_digits=5, decimal_places=3, verbose_name=_('Коэфициент за качество - механизаторы'), blank=True, null=True)
     coefficient_for_quality_others = models.DecimalField(
         max_digits=5, decimal_places=3, verbose_name=_('Коэфициент за качество - другие'), blank=True, null=True)
+    period_start = models.DateField(blank=True, null=True, verbose_name=_('Дата начала периода выполнения'))
+    period_end = models.DateField(blank=True, null=True, verbose_name=_('Дата завершения периода выполнения'))
 
     class Meta:
         verbose_name = _('Работа и техника')

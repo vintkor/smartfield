@@ -385,6 +385,8 @@ $(document).ready(function () {
                 set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_driver, 'coefficient_for_quality_driver');
                 set_data_after_technique_for_work_change(rowParent, response.coefficient_for_quality_others, 'coefficient_for_quality_others');
                 set_data_after_technique_for_work_change(rowParent, response.fuel_rate, 'fuel_rate');
+                set_data_after_technique_for_work_change(rowParent, response.period_start, 'period_start');
+                set_data_after_technique_for_work_change(rowParent, response.period_end, 'period_end');
                 // =>
                 recountRowData(rowParent);
             },

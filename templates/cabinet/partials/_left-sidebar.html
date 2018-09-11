@@ -6,7 +6,7 @@
                 <li class="sidebar-header"><span>{% trans 'Навигация' %}</span></li>
                 <li class="nav-dropdown">
                     <a class="has-arrow-" href="{% url 'dashboard' %}" aria-expanded="false">
-                        <i class="icon dripicons-meter"></i><span>{% trans 'Сводка' %}</span>
+                        <i class="icon dripicons-meter"></i><span>{% trans 'Хозяйство' %}</span>
                     </a>
                 </li>
                 <li class="nav-dropdown">
@@ -16,6 +16,16 @@
                     <ul class="collapse nav-sub" aria-expanded="false">
                         <li><a href="{% url 'planning:add-plan' %}"><span>{% trans 'Сделать планирование поля' %}</span></a></li>
                     </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow-" href="{% url 'dashboard' %}" aria-expanded="false">
+                        <i class="la la-legal"></i><span>{% trans 'Работы' %}</span>
+                    </a>
+                </li>
+                <li class="nav-dropdown">
+                    <a class="has-arrow-" href="{% url 'dashboard' %}" aria-expanded="false">
+                        <i class="la la-map"></i><span>{% trans 'Поля' %}</span>
+                    </a>
                 </li>
                 <li class="nav-dropdown">
                     <a class="has-arrow" href="#" aria-expanded="false">

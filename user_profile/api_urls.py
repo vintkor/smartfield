@@ -1,12 +1,7 @@
 from django.urls import path
-from .views import (
-    AuthView,
-    user_logout,
-)
+from .api_views import UserListApi
 
 
-app_name = 'user'
 urlpatterns = [
-    path('login/', AuthView.as_view(), name='login'),
-    path('logout/', user_logout, name='logout'),
+    path('user', UserListApi.as_view()),
 ]

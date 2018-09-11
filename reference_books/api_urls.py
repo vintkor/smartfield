@@ -1,7 +1,11 @@
 from django.urls import path
-from .api_views import UserListApi
+from .api_views import (
+    CurrencyListApi,
+    UnitListApi,
+)
 
 
 urlpatterns = [
-    path('', UserListApi.as_view()),
+    path('currency', CurrencyListApi.as_view()),
+    path('unit', UnitListApi.as_view()),
 ]
